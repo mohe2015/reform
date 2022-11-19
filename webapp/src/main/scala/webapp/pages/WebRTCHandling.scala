@@ -17,12 +17,12 @@ import scala.concurrent.{Future, Promise}
 import org.scalajs.dom.UIEvent
 import com.github.plokhotnyuk.jsoniter_scala.core._
 
-case class WebRTCHandling() extends Page{
+case class WebRTCHandling() extends Page {
   val codec: JsonValueCodec[webrtc.WebRTC.CompleteSession] = JsonCodecMaker.make
-  val registry = new Registry
-  var pendingServer: Option[PendingConnection] = None
-  val sessionOutput                            = Var("")
-  val sessionInput                             = Var("")
+  val registry                                             = new Registry
+  var pendingServer: Option[PendingConnection]             = None
+  val sessionOutput                                        = Var("")
+  val sessionInput                                         = Var("")
 
   def connected() = {
     sessionOutput.set("")
@@ -41,15 +41,34 @@ case class WebRTCHandling() extends Page{
       pre(sessionOutput),
       button(
         "host",
-        onClick.foreach(e =>
+        onClick.foreach(e => {
           val res = webrtcIntermediate(WebRTC.offer())
           res.session.foreach(showSession)
           pendingServer = Some(res)
-          registry.connect(res.connector).foreach(_ => connected()),
-        ),
+          registry.connect(res.connector).foreach(_ => connected())
+        }),
       ),
       textArea(
         sessionInput,
+        onInput.value --> sessionInput
+      ),
+      button(
+        "connect",
+        onClick.foreach(e => {
+            println(sessionInput.now)
+          val connectionString = readFromString(sessionInput.now)(codec)
+          val connector        = pendingServer match {
+            case None     => // we are client
+              val res = webrtcIntermediate(WebRTC.answer())
+              res.session.foreach(showSession)
+              registry.connect(res.connector).foreach(_ => connected())
+              res.connector
+            case Some(ss) => // we are server
+              pendingServer = None
+              ss.connector
+          }
+          connector.set(connectionString)
+        }),
       ),
     )
   }

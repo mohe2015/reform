@@ -32,7 +32,7 @@ object Routes:
     case Root / "webRtcHandler" => WebRTCHandling();
 
   val toPath: Page => Path =
-    case HomePage()               => Root / ""
-    case LoginPage()              => Root / "login"
-    case ProjectPage(id)          => Root / "project" / id
+    case HomePage()       => Root / ""
+    case LoginPage()      => Root / "login"
+    case ProjectPage(id)  => Root / "project" / id
     case WebRTCHandling() => Root / "webRtcHandler";

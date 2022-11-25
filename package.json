@@ -14,6 +14,7 @@
     "parcel": "parcel"
   },
   "devDependencies": {
+    "@parcel/bundler-experimental": "^2.7.0",
     "jsdom": "^20.0.2",
     "parcel": "^2.8.0",
     "postcss": "^8.4.19",

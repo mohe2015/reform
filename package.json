@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "daisyui": "^2.41.0",
+    "esbuild": "^0.15.15",
     "snabbdom": "github:outwatch/snabbdom#0.7.5"
   }
 }

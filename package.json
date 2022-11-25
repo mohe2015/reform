@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "parcel": "npx parcel"
+    "parcel": "parcel"
   },
   "devDependencies": {
     "jsdom": "^20.0.2",

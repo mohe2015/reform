@@ -8,6 +8,9 @@
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="./webapp/target/scala-3.2.1/webapp-fastopt/main.js"></script>
+    <script type="module">
+      import "./webapp/target/scala-3.2.1/webapp-fastopt/main.js";
+      // https://github.com/parcel-bundler/parcel/issues/5683
+    </script>
   </body>
 </html>

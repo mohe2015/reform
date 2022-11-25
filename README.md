@@ -28,6 +28,7 @@ Then start the Scala.js build server with:
 ```bash
 sbt ~fastLinkJS
 find ./webapp/target/ -type f -exec sed -i -e 's/file:\/\///g' {} \;
+npx esbuild webapp/target/scala-3.2.1/webapp-fastopt/main.js --bundle --outfile=main.js --sourcemap=both --source-root=/
 ```
 
 In another window start the web dev server with:
